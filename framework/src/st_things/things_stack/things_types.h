@@ -49,6 +49,9 @@
 #define PATH_MNT "/mnt/"
 #define PATH_ROM "/rom/"
 
+/**
+ * Holds wifi mode value.
+ */
 typedef enum {
 	WiFi_11A = 0,
 	WiFi_11B,
@@ -58,6 +61,9 @@ typedef enum {
 	WiFi_EOF = 999,
 } wifi_mode_e;
 
+/**
+ * Holds wifi frequency value.
+ */
 typedef enum {
 	WiFi_24G = 0,
 	WiFi_5G,
@@ -65,6 +71,9 @@ typedef enum {
 	WiFi_FREQ_EOF
 } wifi_freq_e;
 
+/**
+ * Holds wifi security type information.
+ */
 typedef enum {
 	NONE_SEC = 0,
 	WEP,
@@ -72,6 +81,9 @@ typedef enum {
 	WPA2_PSK
 } wifi_sec_type_e;
 
+/**
+ * Holds wifi encryption type information.
+ */
 typedef enum {
 	NONE_ENC = 0,
 	WEP_64,
@@ -81,6 +93,9 @@ typedef enum {
 	TKIP_AES
 } wifi_enc_type_e;
 
+/**
+ * Holds Enroller information.
+ */
 typedef struct {
 	char ssid[WIFIMGR_SSID_LEN + 1];	/**< ssid of the Enroller**/
 	char pwd[WIFIMGR_PASSPHRASE_LEN + 1]; /**< pwd of the Enroller**/
@@ -89,12 +104,18 @@ typedef struct {
 	int discovery_channel;		// samsung specific property
 } es_wifi_prov_data_s;
 
+/**
+ * Holds Enroller configuration information.
+ */
 typedef struct {
-	char language[THINGS_STRING_MAX_LENGTH];
-	char country[THINGS_STRING_MAX_LENGTH];
-	char datetime[THINGS_STRING_MAX_LENGTH];
+	char language[THINGS_STRING_MAX_LENGTH];	// Language of the enroller.
+	char country[THINGS_STRING_MAX_LENGTH];		// Country of the enroller.
+	char datetime[THINGS_STRING_MAX_LENGTH];	// Date and time of the enroller.
 } es_dev_conf_prov_data_s;
 
+/**
+ * Holds enroller cloud information.
+ */
 typedef struct {
 	char auth_code[THINGS_STRING_MAX_LENGTH];
 	char auth_provider[THINGS_STRING_MAX_LENGTH];
@@ -110,6 +131,9 @@ typedef struct {
 	char uid[THINGS_STRING_MAX_LENGTH];
 } es_cloud_prov_data_s;
 
+/**
+ * Holds things cloud information.
+ */
 typedef struct things_cloud_info_s {
 	char *domain;			// mandatory ( You can choose one in both "domain" and "ip". )
 	char *ip;
@@ -122,6 +146,9 @@ typedef struct things_cloud_info_s {
 	char *client_id;		// mandatory
 } things_cloud_info_s;
 
+/**
+ * Holds things information.
+ */
 typedef struct things_info_s {
 	char device_id[MAX_DEVICEID_LEN];
 	char resource[MAX_RESOURCE_LEN];
@@ -135,6 +162,9 @@ typedef struct things_info_s {
 	void *resource_handle;
 } things_info_s;
 
+/**
+ * Holds things attribute information.
+ */
 typedef struct things_attribute_info_s {
 	char key[MAX_KEY_LENGTH];
 	char spec[MAX_SPEC_LENGTH];
@@ -143,18 +173,24 @@ typedef struct things_attribute_info_s {
 	int rw;
 } things_attribute_info_s;
 
+/**
+ * Holds things resource information.
+ */
 typedef struct things_resource_info_s {
-	char rid[MAX_RID_LENGTH];
-	char uri[MAX_URI_LEN];
-	char *interface_types[MAX_IT_CNT];
-	char *resource_types[MAX_RT_CNT];
+	char rid[MAX_RID_LENGTH];		// Resource id.
+	char uri[MAX_URI_LEN];			// Resource uri.
+	char *interface_types[MAX_IT_CNT];	// Interface types.
+	char *resource_types[MAX_RT_CNT];	// Resource types.
 
-	int if_cnt;
-	int rt_cnt;
+	int if_cnt;		// Count of interface.
+	int rt_cnt;		// Count of resource type.
 	bool observable;
 	int policy;
 } things_resource_info_s;
 
+/**
+ * Holds the enrolle reset type value.
+ */
 typedef enum {
 	RST_NEED_CONFIRM = 0,
 
@@ -169,66 +205,69 @@ typedef enum {
  */
 typedef enum {
 	/**
-	 * Default state of the device
+	 * Default state of the device.
 	 */
 	ES_STATE_INIT = 0,
 
 	/**
-	 * Status indicating being connecting to target network
+	 * Status indicating being connecting to target network.
 	 */
 	ES_STATE_CONNECTING_TO_ENROLLER,
 
 	/**
-	 * Status indicating successful connection to target network
+	 * Status indicating successful connection to target network.
 	 */
 	ES_STATE_CONNECTED_TO_ENROLLER,
 
 	/**
-	 * Status indicating connection failure to target network
+	 * Status indicating connection failure to target network.
 	 */
 	ES_STATE_FAILED_TO_CONNECT_TO_ENROLLER,
 
 	/**
-	 * Status indicating being registering to cloud
+	 * Status indicating being registering to cloud.
 	 */
 	ES_STATE_REGISTERING_TO_CLOUD,
 
 	/**
-	 * Status indicating successful registration to cloud
+	 * Status indicating successful registration to cloud.
 	 */
 	ES_STATE_REGISTERED_TO_CLOUD,
 
 	/**
-	 * Status indicating registration failure to cloud
+	 * Status indicating registration failure to cloud.
 	 */
 	ES_STATE_FAILED_TO_REGISTER_TO_CLOUD,
 
 	/**
-	 * Status indicating being publishing resources to cloud
+	 * Status indicating being publishing resources to cloud.
 	 */
 	ES_STATE_PUBLISHING_RESOURCES_TO_CLOUD,
 
 	/**
-	 * Status indicating successful resource publish to cloud
+	 * Status indicating successful resource publish to cloud.
 	 */
 	ES_STATE_PUBLISHED_RESOURCES_TO_CLOUD,
 
 	/**
-	 * Status indicating resource publish failure to cloud
+	 * Status indicating resource publish failure to cloud.
 	 */
 	ES_STATE_FAILED_TO_PUBLISH_RESOURCES_TO_CLOUD,
 
 	/**
-	 * Status indicating Logout from cloud
+	 * Status indicating Logout from cloud.
 	 */
 	ES_STATE_LOGOUT_FROM_CLOUD,
 
 	/**
-	 * End of Easy setup status
+	 * End of Easy setup status.
 	 */
 	ES_STATE_EOF = 255
 } things_es_enrollee_state_e, things_prov_status_e, things_cloud_status_e;
 
+/**
+ * Holds access point information.
+ */
 typedef struct access_point_info_s {
 	char e_ssid[WIFIMGR_SSID_LEN + 1];		// mandatory
 	char security_key[WIFIMGR_PASSPHRASE_LEN + 1];	// mandatory

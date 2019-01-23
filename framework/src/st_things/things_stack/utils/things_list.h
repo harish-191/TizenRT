@@ -24,47 +24,63 @@
 #include "octypes.h"
 #include "things_node.h"
 
+//--------------------------------------------------------------------------------
+/**
+ * @brief Prototype for compare two value.
+ * @param src_key 1st value.
+ * @param dest_key 2nd value.
+ * @return If both are matched return 1, otherwise return 0.
+ */
 typedef int (*key_compare)(void *src_key, const void *dest_key);
 
+//--------------------------------------------------------------------------------
+/**
+ * Data structure for holding DLL information.
+ */
 typedef struct list_s {
 	things_node_s *head;
 	things_node_s *tail;
 
-	// size of this list
+	// size of this list.
 	int size;
 
-	// begin
+	// begin.
 	things_node_s *(*begin)(struct list_s *);
-	// pop
+	// pop.
 	void *(*pop)(struct list_s *p_list);
-	// end
+	// end.
 	things_node_s *(*end)(struct list_s *);
-	// size
+	// size.
 	int (*list_size)(struct list_s *);
 	// front
 	things_node_s *(*front)(struct list_s *);
-	// insert
+	// insert.
 	void (*insert)(struct list_s *, void *);
-	// next
+	// next.
 	// Node*       (*get_next)             (oic_node_s*);
-	// erase
+	// erase.
 	void *(*erase)(struct list_s *, void *);
 	void *(*erase_by_key)(struct list_s *, key_compare, const void *key);
-	// clear
+	// clear.
 	void (*clear)(struct list_s *);
-	// find
+	// find.
 	things_node_s *(*find_by_key)(struct list_s *, key_compare, const void *key);
 	pthread_mutex_t q_mutex;	// = PTHREAD_MUTEX_INITIALIZER;
 } list_s;
 
 //-----------------------------------------------------------------------------
-// Function prototype
+// Function prototype.
 //-----------------------------------------------------------------------------
 /**
- * Create and initiate a Queue
+ * Create and initiate a Queue.
  */
 list_s *create_list(void);
 
+//-----------------------------------------------------------------------------
+/**
+ * @brief Prototype for deleting the list.
+ * @param list head pinter of the list.
+ */
 void terminate_list(list_s *list);
 
 #endif							// _OICLIST_H_
